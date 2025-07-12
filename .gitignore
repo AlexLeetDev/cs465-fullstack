@@ -1,13 +1,21 @@
-# Ignore node_modules (do not track installed packages)
+# --- Package Files ---
 node_modules/
 
-# Ignore ZIP files
-*.zip
+# --- VS Code Project Settings ---
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+*.code-workspace
 
-# Ignore logs and environment files
+# --- Runtime & Logs ---
 *.log
 .env
 
-# Ignore system files
+# --- Archive & Export Files ---
+*.zip
+
+# --- System Files ---
 .DS_Store
 Thumbs.db

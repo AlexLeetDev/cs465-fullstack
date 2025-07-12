@@ -1,15 +1,16 @@
 {
   "name": "travlr",
   "version": "1.0.0",
-  "description": "CS-465 Full Stack Development with MEAN",
-  "main": "index.js",
+  "description": "Travlr Getaways site - CS-465 Full Stack Development with MEAN",
+  "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node app.js"
   },
   "keywords": [],
-  "author": "",
+  "author": "Alex Leet",
   "license": "ISC",
   "dependencies": {
-    "express": "^5.1.0"
+    "express": "^5.1.0",
+    "hbs": "^4.2.0"
   }
 }
