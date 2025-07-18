@@ -1,0 +1,46 @@
+{{!--
+  File: news.hbs
+  Author: Alex Leet
+  Course: CS 465 - Full Stack Development I
+
+  Description:
+  - Shows the latest article, plus "Latest News" and "Vacation Tips" sections.
+  - All content is loaded from news.json.
+  - Placed in {{{body}}} of main.hbs.
+--}}
+
+<div class="box">
+  <div>
+    <div id="news" class="body">
+      
+      <div class="sidebar">
+        <h3>Latest News</h3>
+        <ul>
+          {{#each news.latestNews}}
+            <li><a href="/news">{{this}}</a></li>
+          {{/each}}
+        </ul>
+
+        <h3>Vacation Tips</h3>
+        <ul>
+          {{#each news.vacationTips}}
+            <li><a href="/news">{{this}}</a></li>
+          {{/each}}
+        </ul>
+      </div>
+
+      <div>
+        <h1>{{pageHeader.title}}</h1>
+        <img src="/images/{{news.mainArticle.image}}" alt="Main Article Image">
+        <h2>{{news.mainArticle.title}}</h2>
+        <span class="time">{{news.mainArticle.date}}<br>by: {{news.mainArticle.author}}</span>
+
+        {{#each news.mainArticle.paragraphs}}
+          <p>{{this}}</p>
+        {{/each}}
+      </div>
+
+    </div>
+  </div>
+</div>
+

@@ -1,0 +1,35 @@
+{{!--
+  File: meals.hbs
+  Author: Alex Leet
+  Course: CS 465 - Full Stack Development I
+
+  Description:
+  - Displays meal offerings using data from meals.json.
+  - Each meal includes a name, image, and description.
+  - Placed in {{{body}}} of main.hbs.
+--}}
+
+<div class="box">
+  <div>
+    <div class="body">
+      <h1>{{pageHeader.title}}</h1>
+      
+      <ul id="foods">
+        {{#each meals}}
+          <li>
+            <h2>{{name}}</h2>
+            <div class="infos">
+              <a href="#">
+                <img src="/images/{{image}}" alt="{{name}}" height="169" width="780">
+                <span class="cover"></span>
+              </a>
+              <p>
+                <span>{{highlight}}</span> {{description}}
+              </p>
+            </div>
+          </li>
+        {{/each}}
+      </ul>
+    </div>
+  </div>
+</div>

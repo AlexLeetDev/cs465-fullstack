@@ -1,10 +1,10 @@
 {{!--
-  File: travel.hbs
+  File: rooms.hbs
   Author: Alex Leet
   Course: CS 465 - Full Stack Development I
 
   Description:
-  - Displays a list of travel packages dynamically from trips.json.
+  - Displays room options dynamically from rooms.json.
   - Placed in {{{body}}} of main.hbs.
 --}}
 
@@ -13,13 +13,13 @@
     <div class="body">
       <h1>{{pageHeader.title}}</h1>
 
-      <ul id="sites">
-        {{#each trips}}
+      <ul id="rooms">
+        {{#each rooms}}
           <li>
             <img src="/images/{{image}}" alt="{{name}}">
             <h2>{{name}}</h2>
-            <p>{{description1}}</p>
-            <p>{{description2}}</p>
+            <p>{{description}}</p>
+            <span class="rate">Rate: {{rate}}</span>
           </li>
         {{/each}}
       </ul>

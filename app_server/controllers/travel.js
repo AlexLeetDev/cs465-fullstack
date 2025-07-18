@@ -1,22 +1,30 @@
 /**
  * travel.js
  * 
- * Shows the travel page of the Travlr website
- * Sends content to the travel.hbs page when someone visits "/travel"
+ * Controller for the Travel page.
+ * Loads travel packages from trips.json and sends them to the view.
  * 
  * Author: Alex Leet
  * Course: CS 465 - Full Stack Development I
  */
 
-// This function runs when someone visits the "/travel" page
+const fs = require('fs');
+let trips = [];
+
+try {
+  trips = JSON.parse(fs.readFileSync('./data/trips.json', 'utf8'));
+} catch (err) {
+  console.error('Failed to load trips.json', err);
+}
+
 module.exports.travel = function(req, res) {
-  // Show the travel.hbs page and send it the info below
   res.render('travel', {
-    title: 'Travlr | Travel Page', // Title shown in the browser tab
+    title: 'Dive Sites - Bhaccasyoniztas Beach Resort Website Template',
     pageHeader: {
-      title: 'Our Travel Packages', // Main heading at the top of the page
-      strapline: 'Explore destinations around the world' // Small line under the heading
+      title: 'Travel',
     },
-    content: 'Browse a variety of travel options and find your next getaway!' // Main text shown on the page
+    trips,
+    footerText: '© 2023 by BHACCASYONIZTAS BEACH RESORT. All Rights Reserved',
+    activePage: 'travel'
   });
 };

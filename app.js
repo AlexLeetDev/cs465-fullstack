@@ -19,8 +19,16 @@ app.set('views', path.join(__dirname, 'app_server', 'views'));
 // Tell the app to use Handlebars (hbs) to build the pages
 app.set('view engine', 'hbs');
 
+// Use main.hbs as the default layout
+app.set('view options', { layout: 'layouts/main' });
+
 // Tell the app where to find the shared page parts (like headers and footers)
 hbs.registerPartials(path.join(__dirname, 'app_server', 'views', 'partials'));
+
+// Helper function used to highlight the active page in the navigation menu
+hbs.registerHelper('eq', function(a, b) {
+  return a === b;
+});
 
 // Show files from the "public" folder, like images and CSS
 app.use(express.static(path.join(__dirname, 'public')));
