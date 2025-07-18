@@ -1,109 +1,125 @@
-# 🧩 CS-465 Module 2 – MVC and Handlebars Refactor
+# 🏗️ CS-465 Travlr Getaways – Module 3: Dynamic Travel Page with Handlebars
 
 [![Node.js](https://img.shields.io/badge/Node.js-18.x-green?logo=node.js)](https://nodejs.org/)
 [![Express](https://img.shields.io/badge/Express-4.x-lightgrey?logo=express)](https://expressjs.com/)
 [![Handlebars](https://img.shields.io/badge/Handlebars-hbs-orange?logo=handlebars.js)](https://handlebarsjs.com/)
-[![License: ISC](https://img.shields.io/badge/license-ISC-blue.svg)](LICENSE)
-[![Branch](https://img.shields.io/badge/branch-module2-blue)](https://github.com/AlexLeetDev/cs465-fullstack/tree/module2)
+![JSON](https://img.shields.io/badge/JSON-data-blue?logo=json)
+![HTML5](https://img.shields.io/badge/HTML5-Markup-orange?logo=html5)
+![CSS3](https://img.shields.io/badge/CSS3-Styling-blue?logo=css3)
+[![Branch](https://img.shields.io/badge/branch-module3-yellow)](https://github.com/AlexLeetDev/cs465-fullstack/tree/module3)
 
-This branch (`module2`) refactors the original Travlr Getaways static site to use a **Model-View-Controller (MVC)** structure and **Handlebars** templates. It is part of the Module Two assignment for CS-465 Full Stack Development I.
+This branch (`module3`) builds on the Travlr Getaways site by transforming the static **Travel** page into a **dynamic Handlebars template** powered by JSON data. This update reflects the client's request for a scalable solution that reduces hard-coded content and supports flexible updates to travel packages.
 
 ---
 
 ## 🛠 Technologies Used
 
-- **Node.js** – JavaScript runtime
-- **Express** – Server framework
-- **Handlebars (hbs)** – Template engine
-- **HTML/CSS** – Static and dynamic content
+- **Node.js** – JavaScript runtime environment  
+- **Express.js** – Server framework  
+- **Handlebars (hbs)** – View templating engine  
+- **JSON** – Data format used for dynamic content  
+- **HTML/CSS** – Frontend styling and layout
 
 ---
 
-## 📁 Updated Project Structure
+## 🔧 Key Features Implemented
+
+- ✅ Static HTML replaced with `travel.hbs` Handlebars template
+- ✅ `trips.json` file created to store dynamic travel package content
+- ✅ `travel.js` controller reads data using `fs.readFileSync()`
+- ✅ Page now loops through and renders JSON using `{{#each trips}}`
+- ✅ Header and footer split into reusable partials (`header.hbs`, `footer.hbs`)
+- ✅ Navigation highlighting works dynamically using `activePage` context
+
+---
+
+## 📁 Project Structure
 
 ```plaintext
 travlr/
 ├── app_server/
-|   ├── controllers/
-|   |   ├── main.js
-|   |   └── travel.js
-|   ├── routes/
-|   |   └── index.js
-|   └── views/
-|       ├── index.hbs
-|       ├── travel.hbs
-|       └── partials/
-|           ├── header.hbs
-|           └── footer.hbs
+│   ├── controllers/
+│   │   ├── about.js
+│   │   ├── contact.js
+│   │   ├── index.js
+│   │   ├── meals.js
+│   │   ├── news.js
+│   │   ├── rooms.js
+│   │   └── travel.js
+│   ├── routes/
+│   │   └── index.js
+│   └── views/
+│       ├── index.hbs
+│       ├── travel.hbs
+│       ├── rooms.hbs
+│       ├── meals.hbs
+│       ├── news.hbs
+│       ├── about.hbs
+│       ├── contact.hbs
+│       ├── layouts/
+│       │   └── main.hbs
+│       └── partials/
+│           ├── header.hbs
+│           └── footer.hbs
+├── data/
+│   ├── meals.json
+│   ├── news.json
+│   ├── rooms.json
+│   └── trips.json
 ├── public/
-|   ├── css/
-|   ├── images/
-|   ├── about.html
-|   ├── contact.html
-|   ├── meals.html
-|   ├── news.html
-|   ├── rooms.html
-|   └── travel.html
-├── .gitignore
+│   ├── css/
+│   └── images/
 ├── app.js
 ├── package.json
-└── README_module2.md
+└── README
 ```
-
-- Controllers manage logic for different pages.
-- Views (with `.hbs` files) are rendered dynamically using Handlebars.
-- Routes connect URLs to controller functions.
-- `app.js` serves as the main entry point for the app.
 
 ---
 
 ## 🚀 How to Run the Project
 
-1. **Clone the repo and switch to module2 branch**
+```bash
+# 1. Clone the repository and switch to the module3 branch
+git clone https://github.com/AlexLeetDev/cs465-fullstack.git
+cd cs465-fullstack
+git checkout module3
 
-   ```bash
-   git clone https://github.com/AlexLeetDev/cs465-fullstack.git
-   cd cs465-fullstack
-   git checkout module2
-   ```
+# 2. Install project dependencies
+npm install
 
-2. **Install dependencies**
+# 3. Start the Express server
+npm start
 
-   ```bash
-   npm install
-   ```
-
-3. **Start the server**
-
-   ```bash
-   npm start
-   ```
-
-4. **Open the site in your browser**
-
-   Navigate to [http://localhost:3000](http://localhost:3000)
+# 4. Open the app in your browser
+http://localhost:3000
+```
 
 ---
 
 ## ✅ What This Demonstrates
 
-- MVC structure using Express
-- Handlebars templates with shared partials
-- Page routing handled by `index.js` and controller files
-- Homepage and travel page rendered dynamically
-- Follows clean coding practices and project structure standards
+This branch demonstrates:
 
----
-
-## 📌 Notes
-
-This branch moves the project from a static website to a dynamic Express app using MVC and templates.
-Next steps will include adding interactivity and connecting to a backend service.
+- The ability to **dynamically render views** using Handlebars and JSON data
+- Understanding of the **MVC architecture**, where:  
+  - **Model** = JSON file  
+  - **View** = Handlebars template  
+  - **Controller** = `travel.js`
+- Effective use of **partials** to avoid repetition (`header.hbs` / `footer.hbs`)
+- Manual **navigation highlighting** via controller-provided `activePage`
+- Skills in converting large static HTML blocks into **maintainable code**
 
 ---
 
 ## 👤 Author
 
 **Alex Leet**  
-CS-465 – Full Stack Development I  
+CS-465 Full Stack Development I  
 Southern New Hampshire University
+
+---
+
+## 🙏 Credits
+
+- Website layout and images originally provided by [Free Website Templates](https://freewebsitetemplates.com)
+- Modified and repurposed for academic use in accordance with SNHU guidelines
