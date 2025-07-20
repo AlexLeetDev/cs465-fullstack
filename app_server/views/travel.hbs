@@ -11,17 +11,29 @@
 <div class="box">
   <div>
     <div class="body">
+      {{!-- Page title from controller ('Travel') --}}
       <h1>{{pageHeader.title}}</h1>
 
       <ul id="sites">
+        {{!-- Start a loop: this shows each trip from the trips.json file --}}
         {{#each trips}}
           <li>
+            {{!-- Show the image for the trip using the "image" property --}}
             <img src="/images/{{image}}" alt="{{name}}">
+
+            {{!-- Show the trip name --}}
             <h2>{{name}}</h2>
+
+            {{!-- Show the first paragraph of the trip description --}}
             <p>{{description1}}</p>
-            <p>{{description2}}</p>
+
+            {{!-- Show the second paragraph of the trip description (if it exists) --}}
+            {{#if description2}}
+              <p>{{description2}}</p>
+            {{/if}}
           </li>
         {{/each}}
+        {{!-- End of the loop --}}
       </ul>
 
     </div>

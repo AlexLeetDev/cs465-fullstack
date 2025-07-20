@@ -35,44 +35,59 @@ This branch (`module3`) builds on the Travlr Getaways site by transforming the s
 
 ## 📁 Project Structure
 
+<!-- markdownlint-disable MD033 -->
+
+<details>
+<summary>🔧 app_server/ – MVC Application Logic</summary>
+
 ```plaintext
-travlr/
-├── app_server/
-│   ├── controllers/
-│   │   ├── about.js
-│   │   ├── contact.js
-│   │   ├── index.js
-│   │   ├── meals.js
-│   │   ├── news.js
-│   │   ├── rooms.js
-│   │   └── travel.js
-│   ├── routes/
-│   │   └── index.js
-│   └── views/
-│       ├── index.hbs
-│       ├── travel.hbs
-│       ├── rooms.hbs
-│       ├── meals.hbs
-│       ├── news.hbs
-│       ├── about.hbs
-│       ├── contact.hbs
-│       ├── layouts/
-│       │   └── main.hbs
-│       └── partials/
-│           ├── header.hbs
-│           └── footer.hbs
-├── data/
-│   ├── meals.json
-│   ├── news.json
-│   ├── rooms.json
-│   └── trips.json
-├── public/
-│   ├── css/
-│   └── images/
-├── app.js
-├── package.json
-└── README
+app_server/
+├── controllers/        # Page logic (e.g., travel.js, about.js)
+├── routes/             # Express route definitions
+└── views/              # Handlebars templates
+    ├── *.hbs           # Main page templates
+    ├── partials/       # Shared UI elements (header, footer)
+    └── layouts/        # Base layout template (main.hbs)
 ```
+
+</details>
+
+<details>
+<summary>📊 data/ – JSON Data Files</summary>
+
+```plaintext
+data/
+├── trips.json          # Travel packages (used in travel.hbs)
+├── meals.json
+├── news.json
+└── rooms.json
+```
+
+</details>
+
+<details>
+<summary>🌐 public/ – Static Assets</summary>
+
+```plaintext
+public/
+├── css/                # Stylesheets
+└── images/             # Page images (e.g., trip thumbnails)
+```
+
+</details>
+
+<details>
+<summary>🧩 Root Files – App Setup and Configuration</summary>
+
+```plaintext
+app.js                  # Entry point for Express app
+package.json            # Project dependencies
+README.md               # This file
+```
+
+</details>
+
+<!-- markdownlint-enable MD033 -->
 
 ---
 
