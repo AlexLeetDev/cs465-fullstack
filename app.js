@@ -13,6 +13,8 @@ const hbs = require('hbs');           // Template engine that shows pages
 
 const app = express();                // Starts the website app
 
+require('./app_server/models/db');    // Connect to the database
+
 // Set the folder where view templates are stored
 app.set('views', path.join(__dirname, 'app_server', 'views'));
 
