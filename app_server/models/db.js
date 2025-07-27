@@ -58,23 +58,20 @@ const gracefulShutdown = (msg) => {
 
 // Shutdown invoked by nodemon signal
 process.once('SIGUSR2', () => {
-  gracefulShutdown('nodemon restart', () => {
+    gracefulShutdown('nodemon restart');
     process.kill(process.pid, 'SIGUSR2');
-  });
 });
 
 // Shutdown invoked by app termination
 process.on('SIGINT', () => {
-  gracefulShutdown('app termination', () => {
+    gracefulShutdown('app termination');
     process.exit(0);
-  });
 });
 
 // Shutdown invoked by container termination
 process.on('SIGTERM', () => {
-  gracefulShutdown('app shutdown', () => {
+    gracefulShutdown('app shutdown');
     process.exit(0);
-  });
 });
 
 // Make initial connection to DB
@@ -83,5 +80,4 @@ connect();
 // Import Mongoose schema
 require('./travlr');
 module.exports = mongoose;
-
 
