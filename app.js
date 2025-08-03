@@ -13,7 +13,8 @@ const hbs = require('hbs');           // Template engine that shows pages
 
 const app = express();                // Starts the website app
 
-require('./app_server/models/db');    // Connect to the database
+// Connect to the database
+require('./app_api/models/db');
 
 // Set the folder where view templates are stored
 app.set('views', path.join(__dirname, 'app_server', 'views'));
@@ -35,9 +36,13 @@ hbs.registerHelper('eq', function(a, b) {
 // Show files from the "public" folder, like images and CSS
 app.use(express.static(path.join(__dirname, 'public')));
 
-// Load the file that handles what happens on each web page
+// Load web page routes (for views)
 const indexRouter = require('./app_server/routes/index');
-app.use('/', indexRouter);  // Use those routes when people visit the site 
+app.use('/', indexRouter);  // Use these for normal page visits
+
+// Load API routes (for JSON data)
+const apiRouter = require('./app_api/routes/index');
+app.use('/api', apiRouter);  // Use these for API requests
 
 // Start the app and open it on port 3000
 const port = process.env.PORT || 3000;
