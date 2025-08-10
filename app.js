@@ -10,6 +10,7 @@
 const express = require('express');   // Web framework for building the site
 const path = require('path');         // Helps work with file and folder paths
 const hbs = require('hbs');           // Template engine that shows pages
+const morgan = require('morgan');     // Logs HTTP requests in the console
 
 const app = express();                // Starts the website app
 
@@ -35,6 +36,20 @@ hbs.registerHelper('eq', function(a, b) {
 
 // Show files from the "public" folder, like images and CSS
 app.use(express.static(path.join(__dirname, 'public')));
+
+app.use(morgan('dev'));
+
+// Manually enable CORS for Angular Frontend on port 4200
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', 'http://localhost:4200');
+  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+  res.header('Access-Control-Allow-Methods', 'GET,POST,PUT,DELETE,OPTIONS');
+  if (req.method === 'OPTIONS') return res.sendStatus(200);
+  next();
+});
+
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 // Load web page routes (for views)
 const indexRouter = require('./app_server/routes/index');
