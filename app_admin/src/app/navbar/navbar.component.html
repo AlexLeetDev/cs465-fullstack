@@ -1,0 +1,52 @@
+<nav class="navbar navbar-expand navbar-light bg-light">
+  <!-- Brand / Logo -->
+  <a class="navbar-brand" routerLink="">
+    <img src="/assets/images/logo.png" alt="Travlr Logo">
+  </a>
+
+  <!-- Mobile toggle button -->
+  <button
+    class="navbar-toggler"
+    type="button"
+    data-toggle="collapse"
+    data-target="#navbarNavAltMarkup"
+    aria-controls="navbarNavAltMarkup"
+    aria-expanded="false"
+    aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <!-- Collapsible menu -->
+  <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+    <div class="navbar-nav">
+      <!-- Trips link (home) -->
+      <a
+        class="nav-link"
+        routerLink=""
+        routerLinkActive="active"
+        [routerLinkActiveOptions]="{ exact: true }">
+        Trips
+      </a>
+    </div>
+  </div>
+
+  <!-- Right side items -->
+  <div class="navbar-end">
+    <!-- Show Log In if not logged in -->
+    <a
+      class="nav-item"
+      routerLink="login"
+      routerLinkActive="active"
+      *ngIf="!isLoggedIn()">
+      <span class="has-icon-left">Log In</span>
+    </a>
+
+    <!-- Show Log Out if logged in -->
+    <a
+      class="nav-item"
+      (click)="onLogout()"
+      *ngIf="isLoggedIn()">
+      <span class="has-icon-left">Log Out</span>
+    </a>
+  </div>
+</nav>

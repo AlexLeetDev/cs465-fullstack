@@ -7,59 +7,67 @@
  * Course: CS 465 - Full Stack Development I
  */
 
-const express = require('express');   // Web framework for building the site
-const path = require('path');         // Helps work with file and folder paths
-const hbs = require('hbs');           // Template engine that shows pages
-const morgan = require('morgan');     // Logs HTTP requests in the console
+require('dotenv').config(); // Load .env first
 
-const app = express();                // Starts the website app
+const express  = require('express');
+const path     = require('path');
+const hbs      = require('hbs');
+const morgan   = require('morgan');
+const passport = require('passport');
 
-// Connect to the database
+// Configure Passport strategies (must come before initialize)
+require('./app_api/config/passport');
+
+// Connect to MongoDB
 require('./app_api/models/db');
 
-// Set the folder where view templates are stored
+const app = express();
+
+/* ---------- View engine (server-rendered pages) ---------- */
 app.set('views', path.join(__dirname, 'app_server', 'views'));
-
-// Tell the app to use Handlebars (hbs) to build the pages
 app.set('view engine', 'hbs');
-
-// Use main.hbs as the default layout
 app.set('view options', { layout: 'layouts/main' });
 
-// Tell the app where to find the shared page parts (like headers and footers)
+// Partials + helpers
 hbs.registerPartials(path.join(__dirname, 'app_server', 'views', 'partials'));
+hbs.registerHelper('eq', (a, b) => a === b);
 
-// Helper function used to highlight the active page in the navigation menu
-hbs.registerHelper('eq', function(a, b) {
-  return a === b;
-});
-
-// Show files from the "public" folder, like images and CSS
+/* ---------- Static files ---------- */
 app.use(express.static(path.join(__dirname, 'public')));
 
+/* ---------- Core middleware ---------- */
+app.use(passport.initialize());
 app.use(morgan('dev'));
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
-// Manually enable CORS for Angular Frontend on port 4200
+/* ---------- CORS for Angular dev server (http://localhost:4200) ---------- */
 app.use((req, res, next) => {
   res.header('Access-Control-Allow-Origin', 'http://localhost:4200');
-  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
   res.header('Access-Control-Allow-Methods', 'GET,POST,PUT,DELETE,OPTIONS');
   if (req.method === 'OPTIONS') return res.sendStatus(200);
   next();
 });
 
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+/* ---------- Routers ---------- */
+// Server-rendered pages (Handlebars)
+const pageRouter = require('./app_server/routes/index');
+app.use('/', pageRouter);
 
-// Load web page routes (for views)
-const indexRouter = require('./app_server/routes/index');
-app.use('/', indexRouter);  // Use these for normal page visits
-
-// Load API routes (for JSON data)
+// JSON API routes (Angular client)
 const apiRouter = require('./app_api/routes/index');
-app.use('/api', apiRouter);  // Use these for API requests
+app.use('/api', apiRouter);
 
-// Start the app and open it on port 3000
+/* ---------- Auth error handler ---------- */
+app.use((err, req, res, next) => {
+  if (err.name === 'UnauthorizedError') {
+    return res.status(401).json({ message: `${err.name}: ${err.message}` });
+  }
+  next(err);
+});
+
+/* ---------- Start server ---------- */
 const port = process.env.PORT || 3000;
 app.listen(port, () => {
   console.log(`Server running on http://localhost:${port}`);

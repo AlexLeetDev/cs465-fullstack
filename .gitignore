@@ -1,5 +1,6 @@
 # --- Package Files ---
 node_modules/
+app_admin/node_modules/
 
 # --- VS Code Project Settings ---
 .vscode/*
@@ -11,6 +12,9 @@ node_modules/
 
 # --- Runtime & Logs ---
 *.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
 .env
 
 # --- Archive & Export Files ---
@@ -20,3 +24,22 @@ archive/
 # --- System Files ---
 .DS_Store
 Thumbs.db
+
+# --- Build & Coverage Output ---
+dist/
+app_admin/dist
+coverage/
+.tmp/
+
+# --- Angular Cache ---
+app_admin/.angular/
+app_admin/.angular/cache/
+
+# --- Angular Environment Files (if any) ---
+app_admin/src/environments/environment*.ts
+
+# --- Miscellaneous ---
+*.bak
+*.tmp
+
+
