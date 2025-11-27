@@ -1,37 +1,55 @@
 /**
- * File: seed.js
- * Author: Alex Leet
- * Course: CS-465 Full Stack Development I
- * Module Four: NoSQL Databases, Models, and Schemas
- * 
- * Adds sample trip data to the MongoDB database.
- * 
- * - Deletes any existing trips in the database
- * - Loads new trip data from the trips.json file
- * - Closes the database connection when done
+ * Enhanced Seed Script for CS-499
+ * Loads Trips, Meals, Rooms, and News into MongoDB
  */
 
-// Bring in the db connection and the Trip schema
-const Mongoose = require('./db');
+const mongoose = require('./db');
+
+// Import all models
 const Trip = require('./travlr');
+const Meal = require('./meals');
+const Room = require('./rooms');
+const News = require('./news');
 
-// Read seed data from json file
 const fs = require('fs');
-const trips = JSON.parse(fs.readFileSync('./data/trips.json','utf-8'));
 
-// Delete any existing records, then insert seed data
+// Load JSON files
+const trips = JSON.parse(fs.readFileSync('./data/trips.json', 'utf-8'));
+const meals = JSON.parse(fs.readFileSync('./data/meals.json', 'utf-8'));
+const rooms = JSON.parse(fs.readFileSync('./data/rooms.json', 'utf-8'));
+const news = JSON.parse(fs.readFileSync('./data/news.json', 'utf-8'));
+
+// Seed all collections
 const seedDB = async () => {
   try {
+    // Trips
     await Trip.deleteMany({});
     await Trip.insertMany(trips);
     console.log(`${trips.length} trips added.`);
+
+    // Meals
+    await Meal.deleteMany({});
+    await Meal.insertMany(meals);
+    console.log(`${meals.length} meals added.`);
+
+    // Rooms
+    await Room.deleteMany({});
+    await Room.insertMany(rooms);
+    console.log(`${rooms.length} rooms added.`);
+
+    // News (insert single document as array)
+    await News.deleteMany({});
+    await News.insertMany([news]);
+    console.log(`1 news document added.`);
+
   } catch (err) {
     console.error('Error seeding database:', err);
   }
 };
 
-// Close the MongoDB connection and exit
+// Run and close
 seedDB().then(async () => {
-  await Mongoose.connection.close();
+  await mongoose.connection.close();
+  console.log('Database seeding complete. Connection closed.');
   process.exit(0);
 });
