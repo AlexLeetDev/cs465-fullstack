@@ -1,11 +1,13 @@
 /**
- * index.js
- * 
- * API routes for the Travlr application.
- * Connects URL paths to trip and auth controllers.
- * 
+ * File: index.js
  * Author: Alex Leet
- * Course: CS 465 - Full Stack Development I
+ *
+ * Description:
+ *   Defines all API routes for the Travlr application.
+ *
+ * Enhancement (Databases):
+ *   Added new routes for Meals, Rooms, and News so data is now
+ *   retrieved from MongoDB instead of JSON files.
  */
 
 const express = require('express');     // Express app
@@ -15,6 +17,11 @@ const jwt = require('jsonwebtoken');
 // Controllers
 const tripsController = require('../controllers/trips');
 const authController = require('../controllers/authentication');
+
+// NEW: Add these controllers for Enhancement Step 4
+const mealsController = require('../controllers/meals');
+const roomsController = require('../controllers/rooms');
+const newsController = require('../controllers/news');
 
 router
     .route("/register")
@@ -34,12 +41,29 @@ router
     .get(tripsController.tripsFindByCode)
     .put(authenticateJWT, tripsController.tripsUpdateTrip);
 
-// Method to authenticate our JWT
+// -----------------------------------------
+// NEW API ROUTES FOR Enhancement Step 4
+// -----------------------------------------
+
+// Meals
+router
+    .route("/meals")
+    .get(mealsController.mealsList);
+
+// Rooms
+router
+    .route("/rooms")
+    .get(roomsController.roomsList);
+
+// News
+router
+    .route("/news")
+    .get(newsController.newsGet);
+
+// JWT Middleware (unchanged)
 function authenticateJWT(req, res, next) {
-    // console.log('In Middleware');
 
     const authHeader = req.headers['authorization'];
-    // console.log('Auth Header: ' + authHeader);
 
     if(authHeader == null)
     {
@@ -55,7 +79,6 @@ function authenticateJWT(req, res, next) {
     }
 
     const token = authHeader.split(' ')[1];
-    // console.log('Token: ' + token);
 
     if(token == null)
     {
@@ -63,8 +86,6 @@ function authenticateJWT(req, res, next) {
         return res.sendStatus(401);
     }
 
-    // console.log(process.env.JWT_SECRETS);
-    // console.log(jwt.decode(token));
     const verified = jwt.verify(token, process.env.JWT_SECRET, (err, verified) => {
         if(err)
         {
