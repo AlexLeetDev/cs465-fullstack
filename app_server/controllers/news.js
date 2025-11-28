@@ -1,30 +1,29 @@
 /**
- * news.js
- * 
- * Controller for the News page.
- * Loads news data from news.json and passes it to the view.
- * 
+ * File: news.js
  * Author: Alex Leet
- * Course: CS 465 - Full Stack Development I
+ *
+ * Enhancement (Databases):
+ *   Updated to load news from the MongoDB API instead of
+ *   using the old news.json file.
  */
 
-const fs = require('fs');
-let newsData = {};
+const axios = require('axios');
 
-try {
-  newsData = JSON.parse(fs.readFileSync('./data/news.json', 'utf8'));
-} catch (err) {
-  console.error('Failed to load news.json', err);
-}
+module.exports.news = async function (req, res) {
+  try {
+    const response = await axios.get('http://localhost:3000/api/news');
+    const news = response.data;
 
-module.exports.news = function(req, res) {
-  res.render('news', {
-    title: 'News - Travlr Getaways Website Template',
-    pageHeader: {
-      title: 'News',
-    },
-    news: newsData,
-    footerText: '© 2023 by Travlr Getaways. All Rights Reserved',
-    activePage: 'news'
-  });
+    res.render('news', {
+      title: 'News - Travlr Getaways Website Template',
+      pageHeader: { title: 'News' },
+      news,
+      footerText: '© 2023 by Travlr Getaways. All Rights Reserved',
+      activePage: 'news'
+    });
+
+  } catch (err) {
+    console.error('Error fetching news:', err);
+    res.status(500).send('Error retrieving news from the API.');
+  }
 };

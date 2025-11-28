@@ -1,39 +1,28 @@
 /**
- * travel.js
- * 
- * Controller for the Travel page.
- * Loads travel packages from trips.json and sends them to the view.
- * 
+ * File: travel.js
  * Author: Alex Leet
- * Course: CS 465 - Full Stack Development I
+ *
+ * Enhancement (Databases):
+ *   Updated to load trip data from the MongoDB API instead of
+ *   using the old trips.json file.
  */
 
-const fetch = require('node-fetch');
-
-const tripsEndpoint = 'http://localhost:3000/api/trips';
-const options = {
-  method: 'GET',
-  headers: {
-    'Accept': 'application/json'
-  }
-};
+const axios = require('axios');
 
 const travel = async (req, res) => {
   try {
-    const response = await fetch(tripsEndpoint, options);
-    const trips = await response.json();
+    const response = await axios.get('http://localhost:3000/api/trips');
+    const trips = response.data;
 
     res.render('travel', {
-      title: 'Dive Sites - Bhaccasyoniztas Beach Resort Website Template',
-      pageHeader: {
-        title: 'Travel',
-      },
+      title: 'Dive Sites - Bhaccasyoniztaz Beach Resort',
+      pageHeader: { title: 'Travel' },
       trips,
       footerText: '© 2023 by BHACCASYONIZTAS BEACH RESORT. All Rights Reserved',
       activePage: 'travel'
     });
   } catch (err) {
-    console.error('Error fetching trips:', err);
+    console.error('Error loading trips:', err);
     res.status(500).send('Error retrieving trips from the API.');
   }
 };

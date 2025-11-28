@@ -1,30 +1,29 @@
 /**
- * meals.js
- *
- * Controller for the Meals page.
- * Loads meal data from the meals.json and passes it to the view.
- *
+ * File: meals.js
  * Author: Alex Leet
- * Course: CS 465 - Full Stack Development I
+ *
+ * Enhancement (Databases):
+ *   Updated to load meals from the MongoDB API instead of
+ *   using the old meals.json file.
  */
 
-const fs = require('fs');
-let meals = [];
+const axios = require('axios');
 
-try {
-  meals = JSON.parse(fs.readFileSync('./data/meals.json', 'utf8'));
-} catch (err) {
-  console.error('Failed to load meals.json', err);
-}
+module.exports.meals = async function (req, res) {
+  try {
+    const response = await axios.get('http://localhost:3000/api/meals');
+    const meals = response.data;
 
-module.exports.meals = function(req, res) {
-  res.render('meals', {
-    title: 'Foods - Travlr Getaways Website Template',
-    pageHeader: {
-      title: 'Meals'
-    },
-    meals,
-    footerText: '© 2023 by Travlr Getaways. All Rights Reserved',
-    activePage: 'meals'
-  });
+    res.render('meals', {
+      title: 'Foods - Travlr Getaways Website Template',
+      pageHeader: { title: 'Meals' },
+      meals,
+      footerText: '© 2023 by Travlr Getaways. All Rights Reserved',
+      activePage: 'meals'
+    });
+
+  } catch (err) {
+    console.error('Error fetching meals:', err);
+    res.status(500).send('Error retrieving meals from the API.');
+  }
 };

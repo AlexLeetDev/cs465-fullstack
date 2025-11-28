@@ -1,30 +1,29 @@
 /**
- * rooms.js
- * 
- * Controller for the Rooms page.
- * Loads rooms data from rooms.json and sends it to the view.
- * 
+ * File: rooms.js
  * Author: Alex Leet
- * Course: CS 465 - Full Stack Development I
+ *
+ * Enhancement (Databases):
+ *   Updated to load rooms from the MongoDB API instead of
+ *   using the old rooms.json file.
  */
 
-const fs = require('fs');
-let rooms = [];
+const axios = require('axios');
 
-try {
-  rooms = JSON.parse(fs.readFileSync('./data/rooms.json', 'utf8'));
-} catch (err) {
-  console.error('Failed to load rooms.json', err);
-}
+module.exports.rooms = async function (req, res) {
+  try {
+    const response = await axios.get('http://localhost:3000/api/rooms');
+    const rooms = response.data;
 
-module.exports.rooms = function(req, res) {
-  res.render('rooms', {
-    title: 'Rooms - Travlr Getaways Website Template',
-    pageHeader: {
-      title: 'Rooms'
-    },
-    rooms,
-    footerText: '© 2023 by Travlr Getaways. All Rights Reserved',
-    activePage: 'rooms'
-  });
+    res.render('rooms', {
+      title: 'Rooms - Travlr Getaways Website Template',
+      pageHeader: { title: 'Rooms' },
+      rooms,
+      footerText: '© 2023 by Travlr Getaways. All Rights Reserved',
+      activePage: 'rooms'
+    });
+
+  } catch (err) {
+    console.error('Error fetching rooms:', err);
+    res.status(500).send('Error retrieving rooms from the API.');
+  }
 };
