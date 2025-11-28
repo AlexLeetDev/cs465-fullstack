@@ -1,6 +1,9 @@
 /**
- * meals.js
- * API controller for Meals collection.
+ * Enhancement (Databases):
+ * Added this controller so Meals data comes from MongoDB
+ * instead of a JSON file.
+ *
+ * Author: Alex Leet
  */
 
 const Meal = require('../models/meals');

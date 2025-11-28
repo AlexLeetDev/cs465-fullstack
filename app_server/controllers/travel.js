@@ -1,10 +1,9 @@
 /**
- * File: travel.js
- * Author: Alex Leet
- *
  * Enhancement (Databases):
- *   Updated to load trip data from the MongoDB API instead of
- *   using the old trips.json file.
+ * Updated this page to load Trips from the API (MongoDB)
+ * instead of trips.json.
+ *
+ * Author: Alex Leet
  */
 
 const axios = require('axios');

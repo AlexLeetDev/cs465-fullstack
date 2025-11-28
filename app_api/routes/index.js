@@ -1,13 +1,9 @@
 /**
- * File: index.js
- * Author: Alex Leet
- *
- * Description:
- *   Defines all API routes for the Travlr application.
- *
  * Enhancement (Databases):
- *   Added new routes for Meals, Rooms, and News so data is now
- *   retrieved from MongoDB instead of JSON files.
+ * Added new API routes for Meals, Rooms, and News so these
+ * pages now get their data from MongoDB.
+ *
+ * Author: Alex Leet
  */
 
 const express = require('express');     // Express app

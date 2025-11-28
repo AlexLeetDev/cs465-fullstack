@@ -1,12 +1,8 @@
 /**
- * File: travlr.js
+ * Enhancement (Databases):
+ * Updated the Trip schema to support improved database fields.
+ *
  * Author: Alex Leet
- * 
- * Enhanced Trip Schema:
- * - Improved data types (perPerson → Number)
- * - Added validation rules
- * - Added optional fields (tags, available)
- * - Added timestamps for createdAt/updatedAt
  */
 
 const mongoose = require('mongoose');

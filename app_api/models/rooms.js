@@ -1,3 +1,10 @@
+/**
+ * Enhancement (Databases):
+ * New schema for Rooms so this data is stored in MongoDB.
+ *
+ * Author: Alex Leet
+ */
+
 const mongoose = require('mongoose');
 
 const roomSchema = new mongoose.Schema({

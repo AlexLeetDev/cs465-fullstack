@@ -1,3 +1,10 @@
+/**
+ * Enhancement (Databases):
+ * New schema for Meals so this data is stored in MongoDB.
+ *
+ * Author: Alex Leet
+ */
+
 const mongoose = require('mongoose');
 
 const mealSchema = new mongoose.Schema({

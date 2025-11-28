@@ -1,6 +1,9 @@
 /**
- * Enhanced Seed Script for CS-499
- * Loads Trips, Meals, Rooms, and News into MongoDB
+ * Enhancement (Databases):
+ * Updated the seed script to add Meals, Rooms, and News
+ * to MongoDB along with Trips.
+ *
+ * Author: Alex Leet
  */
 
 const mongoose = require('./db');

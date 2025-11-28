@@ -1,10 +1,9 @@
 /**
- * File: meals.js
- * Author: Alex Leet
- *
  * Enhancement (Databases):
- *   Updated to load meals from the MongoDB API instead of
- *   using the old meals.json file.
+ * Updated this page to get Meals from the API (MongoDB)
+ * instead of the old meals.json file.
+ *
+ * Author: Alex Leet
  */
 
 const axios = require('axios');

@@ -1,10 +1,9 @@
 /**
- * File: rooms.js
- * Author: Alex Leet
- *
  * Enhancement (Databases):
- *   Updated to load rooms from the MongoDB API instead of
- *   using the old rooms.json file.
+ * Updated this page so Rooms now load from the API (MongoDB)
+ * instead of a JSON file.
+ *
+ * Author: Alex Leet
  */
 
 const axios = require('axios');

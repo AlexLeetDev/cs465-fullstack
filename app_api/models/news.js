@@ -1,3 +1,10 @@
+/**
+ * Enhancement (Databases):
+ * New schema for News so this data is stored in MongoDB.
+ *
+ * Author: Alex Leet
+ */
+
 const mongoose = require('mongoose');
 
 const newsSchema = new mongoose.Schema({

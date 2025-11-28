@@ -1,10 +1,9 @@
 /**
- * File: news.js
- * Author: Alex Leet
- *
  * Enhancement (Databases):
- *   Updated to load news from the MongoDB API instead of
- *   using the old news.json file.
+ * Updated this page to load News from the API (MongoDB)
+ * instead of a JSON file.
+ *
+ * Author: Alex Leet
  */
 
 const axios = require('axios');

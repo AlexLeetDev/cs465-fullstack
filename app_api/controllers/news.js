@@ -1,6 +1,9 @@
 /**
- * news.js
- * API controller for News collection.
+ * Enhancement (Databases):
+ * Added this controller so News data is now stored in MongoDB
+ * instead of a JSON file.
+ *
+ * Author: Alex Leet
  */
 
 const News = require('../models/news');
